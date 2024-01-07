@@ -14,5 +14,30 @@
   <div class="content e-content" itemprop="articleBody">
     <%- page.content %>
   </div>
+  <div style="background-color: #333; padding: 10px; border-radius: 5px; color: white;">
+    <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 22px;">
+        本作品
+        <a id="current-page-link" style="text-decoration: none; color: #55acee; vertical-align: bottom;">[页面标题]</a> 
+        由 
+        <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://www.mealuet.com/about/" style="text-decoration: none; color: #55acee; vertical-align: bottom;">Zack Zhu</a> 
+        创作，采用 
+        <span style="vertical-align: bottom;">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank" rel="license noopener noreferrer" style="text-decoration: none; color: #55acee; vertical-align: bottom;">
+                CC BY-NC-SA 4.0
+            </a>
+            <img style="height:22px; margin-left:3px; vertical-align: middle; display:inline-block;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1">
+            <img style="height:22px; margin-left:3px; vertical-align: middle; display:inline-block;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">
+            <img style="height:22px; margin-left:3px; vertical-align: middle; display:inline-block;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1">
+            <img style="height:22px; margin-left:3px; vertical-align: middle; display:inline-block;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1">
+        </span>
+    </p>
+  </div>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var currentPageLink = document.getElementById('current-page-link');
+          currentPageLink.href = window.location.href;
+          currentPageLink.textContent = document.title;
+      });
+  </script>
 </article>
 <%- partial('_partial/comments') %>
