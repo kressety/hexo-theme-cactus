@@ -19,7 +19,9 @@
         本作品
         <a id="current-page-link" style="text-decoration: none; color: #55acee; vertical-align: bottom;">[页面标题]</a> 
         由 
-        <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://www.mealuet.com/about/" style="text-decoration: none; color: #55acee; vertical-align: bottom;">Zack Zhu</a> 
+        <span id="authors-container" style="text-decoration: none; color: #55acee; vertical-align: bottom;">
+          <!-- 动态生成的作者链接将被放置在这里 -->
+      </span> 
         创作，采用 
         <span style="vertical-align: bottom;">
             <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank" rel="license noopener noreferrer" style="text-decoration: none; color: #55acee; vertical-align: bottom;">
@@ -37,6 +39,32 @@
           var currentPageLink = document.getElementById('current-page-link');
           currentPageLink.href = window.location.href;
           currentPageLink.textContent = document.title;
+          // 获取并处理文章作者名
+          var authorsText = document.querySelector('.author').textContent;
+          var authors = authorsText.split(',').map(author => author.trim());
+          // 读取 authors.json 文件
+          fetch('/authors.json') // 确保这里的路径指向您的 authors.json 文件
+              .then(response => response.json())
+              .then(authorsData => {
+                  var authorsContainer = document.getElementById('authors-container');
+                  authorsContainer.innerHTML = ''; // 清空容器的内容
+                  authors.forEach((author, index) => {
+                      var authorElement;
+                      if (authorsData[author] && authorsData[author] !== "") {
+                          // 如果作者存在且有对应的链接
+                          authorElement = `<a href="${authorsData[author]}" rel="cc:attributionURL dct:creator" style="text-decoration: none; color: #55acee; vertical-align: bottom;">${author}</a>`;
+                      } else {
+                          // 如果没有链接或作者不存在于 authors.json 中
+                          authorElement = author;
+                      }
+                      // 检查是否是最后一个作者
+                      if (index < authors.length - 1) {
+                          authorElement += ', ';
+                      }
+                      authorsContainer.insertAdjacentHTML('beforeend', authorElement);
+                  });
+              })
+              .catch(error => console.log('Error loading authors.json:', error));
       });
   </script>
 </article>
